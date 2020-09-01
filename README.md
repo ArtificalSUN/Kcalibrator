@@ -13,4 +13,4 @@ Configure the script and run it with Python - it will generate output G-Code fil
 User can adjust:
 - Basic machine parameters (bed size, filament diameter, autoleveling, etc.)
 - Basic printing settings (temperature, cooling, retraction, etc.)
-- Pattern parameters (size, speeds, K-factor range and step, number of perimeters, number of layers prited with each specific K-factor)
+- Pattern parameters (size, speeds, K-factor range and step, number of perimeters, number of layers prited with each specific K-factor, etc.)
