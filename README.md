@@ -18,4 +18,4 @@ User can adjust:
 Pattern consists of a rectangular wall (or two) printed with sharp changes in speed and with K-factor increasing from bottom to top.
 Print the pattern and find the height where it looks the best. Corners should not bulge, flow should be homogeneous with as little influence from speed changes as possible, seam should be barely noticeable. Calculate desired K-factor from this height and parameters u used to generate the pattern
 
-## good luck
+## Good luck!
