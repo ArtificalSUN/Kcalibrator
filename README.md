@@ -7,8 +7,8 @@ Requires Python 3 to run.
 No additional packages except the Standard Library required.
 
 ## Usage
-Currently it is a simple script which provides no interface. Configuration is done by changing parameters in the script body.
-Configure the script and run it with Python - it will generate output G-Code file in the working directory.
+A script with a simple interface. The setting is carried out by changing the parameters in the configuration file or in the program interface.
+Configure the script and run it with Python - it will generate an output G-code file in the working directory.
 
 User can adjust:
 - Basic machine parameters (bed size, filament diameter, autoleveling, etc.)
