@@ -14,7 +14,7 @@ Print the pattern and find the height where it looks the best.
 Corners should not bulge, flow should be homogeneous with as little influence from speed changes as possible, seam should be barely noticeable.
 Calculate desired K-factor from this height and parameters you used to generate the pattern.
 
-![Pattern example](img\RH_example_patter.png)
+![Pattern example](img/RH_example_patter.png)
 
 Program has a simple grafical user interface (contribeted by [Foreytor](https://github.com/Foreytor)) allowing to change various settings of the pattern generator.
 User can adjust:
