@@ -2,7 +2,7 @@
 # coding: utf-8
 # author: Victor Shapovalov (@ArtificalSUN, https://github.com/ArtificalSUN), 2020
 # GUI and configuration contributed by Foreytor (https://github.com/Foreytor)
-# version: 0.2.0
+# version: 0.2.1
 
 """
 This script generates pattern fot Linear Advance K-factor calibration for Marlin (and other firmwares which use M900 to adjust pressure control algorithms)
@@ -33,16 +33,16 @@ class SettingClass():
     Class to handle parameters for pattern generation and g-code output
     """
     def __init__(self):
-        self.speed_slow = 20 # slow speed for calibration pattern
-        self.speed_fast = 100 # fast speed for calibrtion pattern
+        self.speed_slow = 20.0 # slow speed for calibration pattern
+        self.speed_fast = 100.0 # fast speed for calibrtion pattern
         self.k_start = 0.0 # \
         self.k_end = 0.2   # | start, stop and step values for K-factor calibration
         self.k_step = 0.01 # /
         self.layers_per_k = 5 # number of layers printed with any specific K-factor
         self.z_offset=0.0 # Z-offset
-        self.size = (140, 70) # (X, Y) size of the pattern
-        self.retract = (4, 30) # (length, speed) for retractions
-        self.bed_size = (200, 200) # (X, Y) size of the bed
+        self.size = (140.0, 70.0) # (X, Y) size of the pattern
+        self.retract = (4.0, 30.0) # (length, speed) for retractions
+        self.bed_size = (200.0, 200.0) # (X, Y) size of the bed
         self.temperature = (210, 60) # (hotend, bed) temperatures
         self.path_spd_fractions = (0.2, 0.6, 0.2) #fractions for pattern parts printed with slow and fast speeds
         self.use_G29 = False # adds G29 to start g-code (for autoleveling)
@@ -52,24 +52,24 @@ class SettingClass():
         self.def_fil_dia = 1.75 # filament diameter in mm
         self.def_line_width = 0.4 # line width
         self.def_layer = 0.2 # layer height
-        self.def_speed_print = 40 # default printing speed (first layer, etc.)
-        self.def_speed_travel = 160 # defauld traver speed
+        self.def_speed_print = 40.0 # default printing speed (first layer, etc.)
+        self.def_speed_travel = 160.0 # defauld traver speed
         self.def_cooling = 50 # part cooling fan speed (0-100)
 
     def updatesettings(self, root):
         """
         Method for updating settings from GUI
         """
-        self.speed_slow = int(root.speed_slow_entry.get())
-        self.speed_fast = int(root.speed_fast_entry.get())
+        self.speed_slow = float(root.speed_slow_entry.get())
+        self.speed_fast = float(root.speed_fast_entry.get())
         self.k_start = float(root.speed_fast_start_entry.get())
         self.k_end = float(root.speed_fast_stop_entry.get())
         self.k_step = float(root.speed_fast_step_entry.get())
         self.layers_per_k = int(root.layers_per_k_entry.get())
         self.z_offset = float(root.z_offset_entry.get())
         self.size = (float(root.size_x_entry.get()), float(root.size_y_entry.get()))
-        self.retract = (int(root.retract_length_entry.get()), int(root.retract_speed_entry.get()))
-        self.bed_size = (int(root.bed_size_x_entry.get()), int(root.bed_size_y_entry.get()))
+        self.retract = (float(root.retract_length_entry.get()), float(root.retract_speed_entry.get()))
+        self.bed_size = (float(root.bed_size_x_entry.get()), float(root.bed_size_y_entry.get()))
         self.temperature = (int(root.temperature_hotend_entry.get()), int(root.temperature_bed_entry.get()))
         self.path_spd_fractions = (float(root.path_spd_fractions_slow_entry.get()), float(root.path_spd_fractions_fast_entry.get()),
                               float(root.path_spd_fractions_speeds_entry.get()))
@@ -80,8 +80,8 @@ class SettingClass():
         self.def_fil_dia = float(root.def_fil_dia_entry.get())
         self.def_line_width = float(root.def_line_width_entry.get())
         self.def_layer = float(root.def_layer_entry.get())
-        self.def_speed_print = int(root.def_speed_print_entry.get())
-        self.def_speed_travel = int(root.def_speed_travel_entry.get())
+        self.def_speed_print = float(root.def_speed_print_entry.get())
+        self.def_speed_travel = float(root.def_speed_travel_entry.get())
         self.def_cooling = int(root.def_cooling_entry.get())
 
     # def update_and_create(self):
@@ -167,45 +167,45 @@ class SettingClass():
         """
         config = configparser.ConfigParser()
         config.read(path)
-        self.speed_slow = int(config.get("Config", "speed_slow"))
-        self.speed_fast = int(config.get("Config", "speed_fast"))
+        self.speed_slow = float(config.get("Config", "speed_slow"))
+        self.speed_fast = float(config.get("Config", "speed_fast"))
         self.k_start = float(config.get("Config", "k_start"))
         self.k_end = float(config.get("Config", "k_end"))
         self.k_step = float(config.get("Config", "k_step"))
         self.layers_per_k = int(config.get("Config", "layers_per_k"))
         self.z_offset = float(config.get("Config", "z_offset"))
-        self.size = tuple(int(v) for v in re.findall("[0-9]+", config.get("Config", "size")))
-        self.retract = tuple(int(v) for v in re.findall("[0-9]+", config.get("Config", "retract")))
-        self.bed_size = tuple(int(v) for v in re.findall("[0-9]+", config.get("Config", "bed_size")))
+        self.size = tuple(float(v) for v in re.findall("[0-9]+", config.get("Config", "size")))
+        self.retract = tuple(float(v) for v in re.findall("[0-9]+", config.get("Config", "retract")))
+        self.bed_size = tuple(float(v) for v in re.findall("[0-9]+", config.get("Config", "bed_size")))
         self.temperature = tuple(int(v) for v in re.findall("[0-9]+", config.get("Config", "temperature")))
         self.path_spd_fractions = tuple(float(v) for v in re.findall("[0-9].[0-9]+", config.get("Config", "path_spd_fractions")))
-        self.use_G29 = True if "True" in config.get("Config", "use_G29") else False
-        self.retract_at_layer_change = True if "True" in config.get("Config", "retract_at_layer_change") else False
-        self.double_perimeter = True if "True" in config.get("Config", "double_perimeter") else False
+        self.use_G29 = True if "true" in config.get("Config", "use_G29").lower() else False
+        self.retract_at_layer_change = True if "true" in config.get("Config", "retract_at_layer_change").lower() else False
+        self.double_perimeter = True if "true" in config.get("Config", "double_perimeter").lower() else False
 
         self.def_fil_dia = float(config.get("Config", "def_fil_dia"))
         self.def_line_width = float(config.get("Config", "def_line_width"))
         self.def_layer = float(config.get("Config", "def_layer"))
-        self.def_speed_print = int(config.get("Config", "def_speed_print"))
-        self.def_speed_travel = int(config.get("Config", "def_speed_travel"))
+        self.def_speed_print = float(config.get("Config", "def_speed_print"))
+        self.def_speed_travel = float(config.get("Config", "def_speed_travel"))
         self.def_cooling = int(config.get("Config", "def_cooling"))
-        
+
         print("Configuration loaded")
 
 
-def frange(start, stop, step): #float range!
+def frange(start, stop, step): # float range!
     while start < stop:
         yield start
         start += step
 
-def moveabs(position, *args):
+def moveabs(position, *args): # absolute move from position to new_position
     new_position = position[:]
     try:
         for i, coordinate in enumerate(args): new_position[i]=coordinate
     except IndexError: pass
     return new_position
 
-def moverel(position, *args):
+def moverel(position, *args): # relative move from position to new_position
     new_position = position[:]
     try:
         for i, coordinate in enumerate(args): new_position[i]+=coordinate
@@ -213,7 +213,7 @@ def moverel(position, *args):
     return new_position
 
 
-class Extruder:
+class Extruder: # virtual extruder class
     def __init__(self, e, currentConfig):
         self.e = e
         self.def_line_width = currentConfig.def_line_width
@@ -236,7 +236,7 @@ class Extruder:
     def deretract(self): pass
 
 
-def rectangle(x_center, y_center, x_size, y_size):
+def rectangle(x_center, y_center, x_size, y_size): # construct rectangle from center
     return [(x_center-x_size/2, y_center-y_size/2), (x_center-x_size/2, y_center+y_size/2), (x_center+x_size/2, y_center+y_size/2), (x_center+x_size/2, y_center-y_size/2)]
 
 def G1(position, length, speed):
@@ -260,33 +260,33 @@ def creategcode(currentConfig):
 
     gcode_start = \
     """M190 S{T_b}
-    M109 S{T_h}
-    M106 S{C}
-    G28{G29}
-    G90
-    ;M83
-    M900 K0
-    G92 E0
-    G0 Z{zo:.3f} F300
-    G92 Z{zl:.3f}
-    G0 Z2.0 F600
-    G0 X{X1:.3f} Y{Y1:.3f} Z0.2 F{F_t} ;Move to start position
-    G1 X{X1:.3f} Y{Y2:.3f} F{F_p} E{E1:.5f} ;Draw the first line
-    G0 X{X2:.3f} Y{Y2:.3f} F{F_t} ;Move to side a little
-    G1 X{X2:.3f} Y{Y1:.3f} F{F_p} E{E2:.5f} ;Draw the second line
-    G92 E0 ;Reset Extruder
-    G0 Z2 F600""".format(T_h=currentConfig.temperature[0], T_b=currentConfig.temperature[1], C=int(currentConfig.def_cooling/100*255), zl=currentConfig.def_layer, zo=currentConfig.def_layer+currentConfig.z_offset, F_t=currentConfig.def_speed_travel*60, F_p=currentConfig.def_speed_print*60, X1=1, Y1=10,
+M109 S{T_h}
+G28{G29}
+G90
+;M83
+M900 K0
+G92 E0
+G0 Z{zo:.3f} F300
+G92 Z{zl:.3f}
+G0 Z2.0 F600
+G0 X{X1:.3f} Y{Y1:.3f} Z0.2 F{F_t} ;Move to start position
+G1 X{X1:.3f} Y{Y2:.3f} F{F_p} E{E1:.5f} ;Draw the first line
+G0 X{X2:.3f} Y{Y2:.3f} F{F_t} ;Move to side a little
+G1 X{X2:.3f} Y{Y1:.3f} F{F_p} E{E2:.5f} ;Draw the second line
+G92 E0 ;Reset Extruder
+G0 Z2 F600
+M106 S{C}""".format(T_h=currentConfig.temperature[0], T_b=currentConfig.temperature[1], C=int(currentConfig.def_cooling/100*255), zl=currentConfig.def_layer, zo=currentConfig.def_layer+currentConfig.z_offset, F_t=currentConfig.def_speed_travel*60, F_p=currentConfig.def_speed_print*60, X1=1, Y1=10,
                             Y2=currentConfig.bed_size[1]-10, X2=1+currentConfig.def_line_width, E1=ex.extrude(currentConfig.bed_size[1]-20), E2 = ex.extrude(currentConfig.bed_size[1]-20), G29 = "\nG29" if currentConfig.use_G29 else "")
 
     gcode_end = \
     """M104 S0
-    M140 S0
-    M107
-    G91
-    G1 E-{R} F{RS}
-    G0 Z5 F600
-    G90
-    G0 X0 Y0 F{F_t}""".format(R=currentConfig.retract[0], RS = currentConfig.retract[1]*60, F_t = currentConfig.def_speed_travel*60)
+M140 S0
+M107
+G91
+G1 E-{R} F{RS}
+G0 Z5 F600
+G90
+G0 X0 Y0 F{F_t}""".format(R=currentConfig.retract[0], RS = currentConfig.retract[1]*60, F_t = currentConfig.def_speed_travel*60)
 
     gcode = [gcode_start,]
 

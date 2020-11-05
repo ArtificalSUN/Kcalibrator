@@ -22,7 +22,7 @@ User can adjust:
 - Basic printing settings (temperature, cooling, retraction, etc.)
 - Pattern parameters (size, speeds, K-factor range and step, number of perimeters, number of layers prited with each specific K-factor, etc.)
 
-Current configuration can be saved to Kcalibrator.cfg file in the same directory with the prigram (it will also be automatically generated if missing on program startup).
+Current configuration can be saved to Kcalibrator.cfg file in the same directory with the program (it will also be automatically generated if missing on program startup).
 Generated G-code files are also saved in the same directory with the program.
 
 ## Good luck!
