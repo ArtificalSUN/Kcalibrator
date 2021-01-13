@@ -2,7 +2,7 @@
 # coding: utf-8
 # author: Victor Shapovalov (@ArtificalSUN, https://github.com/ArtificalSUN), 2021
 # Configuration contributed by Foreytor (https://github.com/Foreytor)
-# version: 1.0.1
+# version: 1.0.2
 
 """
 This script generates pattern fot Linear Advance K-factor calibration for Marlin (and other firmwares which use M900 to adjust pressure control algorithms)
@@ -13,7 +13,7 @@ Calculate desired K-factor from this height and parameters you used to generate 
 Good luck!
 """
 
-versionstring = "Kcalibrator v1.0.1 (Victor Shapovalov, 2021)"
+versionstring = "Kcalibrator v1.0.2 (Victor Shapovalov, 2021)"
 import os, sys, re
 from math import pi, sqrt
 
@@ -214,7 +214,8 @@ def update_and_create():
 configPath = "Kcalibrator.cfg"
 currentConfig = settings.SettingClass()
 if os.path.exists(configPath):
-    currentConfig.read_config(configPath)
+    try: currentConfig.read_config(configPath)
+    except: currentConfig.save_config(configPath)
 else:
     currentConfig.save_config(configPath)
 
