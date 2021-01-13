@@ -6,7 +6,8 @@ Should provide better (or at least different) way to calibrate Liniar Advance (a
 Program is written in Python and available in 2 versions:
 + Python script (requires Python 3 to run, no additional packages needed)
 + Windows x64 executable (frozen with pyinstaller, more convinient, no requirements to run)
-Latest Windows executable is available in tags/releases section of the repository.
+
+**Latest Windows executable is available in tags/releases section of the repository**
 
 ## Usage
 This script generates pattern fot Linear Advance K-factor calibration for Marlin (and other firmwares which use M900 to adjust pressure control algorithms).
