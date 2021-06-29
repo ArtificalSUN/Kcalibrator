@@ -1089,7 +1089,7 @@ class Toplevel:
             dK = float(self.ent_StepK_var.get())
             Nsk = float(self.ent_LayersPerK_var.get())
             result = Kn + int(H/(L*Nsk))*dK
-            self.lbl_K['text'] = "Calculaded K-factor = %s" % round(result, 3)
+            self.lbl_K['text'] = "Calculated K-factor = %s" % round(result, 3)
             self.lbl_K.configure(foreground="#007c00")
             return result
         except:
