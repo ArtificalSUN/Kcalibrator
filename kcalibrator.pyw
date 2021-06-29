@@ -1,5 +1,5 @@
-#!python3
-# coding: utf-8
+#! /usr/bin/env python
+#  -*- coding: utf-8 -*-
 # author: Victor Shapovalov (@ArtificalSUN, https://github.com/ArtificalSUN), 2021
 # Configuration contributed by Foreytor (https://github.com/Foreytor)
 # version: 1.0.3
