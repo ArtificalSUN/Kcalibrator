@@ -119,7 +119,7 @@ class Toplevel:
                 , relwidth=0.153, bordermode='ignore')
         self.ent_StartK.configure(font="-family {Segoe UI} -size 10 -weight normal -slant roman -underline 0 -overstrike 0")
         self.ent_StartK.configure(takefocus="")
-        self.ent_StartK.configure(cursor="ibeam")
+        # self.ent_StartK.configure(cursor="ibeam")
         self.ent_StartK_var = tk.StringVar()
         self.ent_StartK.configure(textvariable = self.ent_StartK_var)
 
@@ -128,7 +128,7 @@ class Toplevel:
                 , relwidth=0.153, bordermode='ignore')
         self.ent_StepK.configure(font="-family {Segoe UI} -size 10 -weight normal -slant roman -underline 0 -overstrike 0")
         self.ent_StepK.configure(takefocus="")
-        self.ent_StepK.configure(cursor="ibeam")
+        # self.ent_StepK.configure(cursor="ibeam")
         self.ent_StepK_var = tk.StringVar()
         self.ent_StepK.configure(textvariable = self.ent_StepK_var)
 
@@ -184,7 +184,7 @@ class Toplevel:
         self.ent_FastSpeed.place(relx=0.214, rely=0.532, relheight=0.085
                 , relwidth=0.139, bordermode='ignore')
         self.ent_FastSpeed.configure(takefocus="")
-        self.ent_FastSpeed.configure(cursor="ibeam")
+        # self.ent_FastSpeed.configure(cursor="ibeam")
         self.ent_FastSpeed_var = tk.StringVar()
         self.ent_FastSpeed.configure(textvariable = self.ent_FastSpeed_var)
 
@@ -205,7 +205,7 @@ class Toplevel:
                 , relwidth=0.139, bordermode='ignore')
         self.ent_SlowSpeed.configure(font="-family {Segoe UI} -size 10 -weight normal -slant roman -underline 0 -overstrike 0")
         self.ent_SlowSpeed.configure(takefocus="")
-        self.ent_SlowSpeed.configure(cursor="ibeam")
+        # self.ent_SlowSpeed.configure(cursor="ibeam")
         self.ent_SlowSpeed_var = tk.StringVar()
         self.ent_SlowSpeed.configure(textvariable = self.ent_SlowSpeed_var)
 
@@ -238,7 +238,7 @@ class Toplevel:
                 , relwidth=0.153, bordermode='ignore')
         self.ent_StopK.configure(font="-family {Segoe UI} -size 10 -weight normal -slant roman -underline 0 -overstrike 0")
         self.ent_StopK.configure(takefocus="")
-        self.ent_StopK.configure(cursor="ibeam")
+        # self.ent_StopK.configure(cursor="ibeam")
         self.ent_StopK_var = tk.StringVar()
         self.ent_StopK.configure(textvariable = self.ent_StopK_var)
 
@@ -246,7 +246,7 @@ class Toplevel:
         self.ent_LayersPerK.place(relx=0.872, rely=0.298, relheight=0.085
                 , relwidth=0.111, bordermode='ignore')
         self.ent_LayersPerK.configure(takefocus="")
-        self.ent_LayersPerK.configure(cursor="ibeam")
+        # self.ent_LayersPerK.configure(cursor="ibeam")
         self.ent_LayersPerK_var = tk.StringVar()
         self.ent_LayersPerK.configure(textvariable = self.ent_LayersPerK_var)
 
@@ -254,7 +254,7 @@ class Toplevel:
         self.ent_SpdFr1.place(relx=0.478, rely=0.638, relheight=0.085
                 , relwidth=0.139, bordermode='ignore')
         self.ent_SpdFr1.configure(takefocus="")
-        self.ent_SpdFr1.configure(cursor="ibeam")
+        # self.ent_SpdFr1.configure(cursor="ibeam")
         self.ent_SpdFr1_var = tk.StringVar()
         self.ent_SpdFr1.configure(textvariable = self.ent_SpdFr1_var)
 
@@ -262,7 +262,7 @@ class Toplevel:
         self.ent_SpdFr2.place(relx=0.661, rely=0.638, relheight=0.085
                 , relwidth=0.139, bordermode='ignore')
         self.ent_SpdFr2.configure(takefocus="")
-        self.ent_SpdFr2.configure(cursor="ibeam")
+        # self.ent_SpdFr2.configure(cursor="ibeam")
         self.ent_SpdFr2_var = tk.StringVar()
         self.ent_SpdFr2.configure(textvariable = self.ent_SpdFr2_var)
 
@@ -270,7 +270,7 @@ class Toplevel:
         self.ent_SpdFr3.place(relx=0.844, rely=0.638, relheight=0.085
                 , relwidth=0.139, bordermode='ignore')
         self.ent_SpdFr3.configure(takefocus="")
-        self.ent_SpdFr3.configure(cursor="ibeam")
+        # self.ent_SpdFr3.configure(cursor="ibeam")
         self.ent_SpdFr3_var = tk.StringVar()
         self.ent_SpdFr3.configure(textvariable = self.ent_SpdFr3_var)
 
@@ -314,7 +314,7 @@ class Toplevel:
         self.ent_PatternXsize.place(relx=0.464, rely=0.787, relheight=0.085
                 , relwidth=0.139, bordermode='ignore')
         self.ent_PatternXsize.configure(takefocus="")
-        self.ent_PatternXsize.configure(cursor="ibeam")
+        # self.ent_PatternXsize.configure(cursor="ibeam")
         self.ent_PatternXsize_var = tk.StringVar()
         self.ent_PatternXsize.configure(textvariable = self.ent_PatternXsize_var)
 
@@ -322,7 +322,7 @@ class Toplevel:
         self.ent_PatternYsize.place(relx=0.642, rely=0.787, relheight=0.085
                 , relwidth=0.139, bordermode='ignore')
         self.ent_PatternYsize.configure(takefocus="")
-        self.ent_PatternYsize.configure(cursor="ibeam")
+        # self.ent_PatternYsize.configure(cursor="ibeam")
         self.ent_PatternYsize_var = tk.StringVar()
         self.ent_PatternYsize.configure(textvariable = self.ent_PatternYsize_var)
 
@@ -458,7 +458,7 @@ class Toplevel:
         self.ent_BuildVolY.place(relx=0.444, rely=0.48, relheight=0.16
                 , relwidth=0.153, bordermode='ignore')
         self.ent_BuildVolY.configure(takefocus="")
-        self.ent_BuildVolY.configure(cursor="ibeam")
+        # self.ent_BuildVolY.configure(cursor="ibeam")
         self.ent_BuildVolY_var = tk.StringVar()
         self.ent_BuildVolY.configure(textvariable = self.ent_BuildVolY_var)
 
@@ -466,7 +466,7 @@ class Toplevel:
         self.ent_BuildVolX.place(relx=0.25, rely=0.48, relheight=0.16
                 , relwidth=0.153, bordermode='ignore')
         self.ent_BuildVolX.configure(takefocus="")
-        self.ent_BuildVolX.configure(cursor="ibeam")
+        # self.ent_BuildVolX.configure(cursor="ibeam")
         self.ent_BuildVolX_var = tk.StringVar()
         self.ent_BuildVolX.configure(textvariable = self.ent_BuildVolX_var)
 
@@ -550,7 +550,7 @@ class Toplevel:
         self.ent_BuildVolZ.place(relx=0.636, rely=0.48, relheight=0.16
                 , relwidth=0.153, bordermode='ignore')
         self.ent_BuildVolZ.configure(takefocus="")
-        self.ent_BuildVolZ.configure(cursor="ibeam")
+        # self.ent_BuildVolZ.configure(cursor="ibeam")
         self.ent_BuildVolZ_var = tk.StringVar()
         self.ent_BuildVolZ.configure(textvariable = self.ent_BuildVolZ_var)
 
@@ -593,7 +593,7 @@ class Toplevel:
         self.ent_NozzleTemp.place(relx=0.565, rely=0.059, relheight=0.059
                 , relwidth=0.239, bordermode='ignore')
         self.ent_NozzleTemp.configure(takefocus="")
-        self.ent_NozzleTemp.configure(cursor="ibeam")
+        # self.ent_NozzleTemp.configure(cursor="ibeam")
         self.ent_NozzleTemp_var = tk.StringVar()
         self.ent_NozzleTemp.configure(textvariable = self.ent_NozzleTemp_var)
 
@@ -601,7 +601,7 @@ class Toplevel:
         self.ent_BedTemp.place(relx=0.565, rely=0.133, relheight=0.059
                 , relwidth=0.239, bordermode='ignore')
         self.ent_BedTemp.configure(takefocus="")
-        self.ent_BedTemp.configure(cursor="ibeam")
+        # self.ent_BedTemp.configure(cursor="ibeam")
         self.ent_BedTemp_var = tk.StringVar()
         self.ent_BedTemp.configure(textvariable = self.ent_BedTemp_var)
 
@@ -650,7 +650,7 @@ class Toplevel:
         self.ent_RetractDist.place(relx=0.565, rely=0.295, relheight=0.059
                 , relwidth=0.239, bordermode='ignore')
         self.ent_RetractDist.configure(takefocus="")
-        self.ent_RetractDist.configure(cursor="ibeam")
+        # self.ent_RetractDist.configure(cursor="ibeam")
         self.ent_RetractDist_var = tk.StringVar()
         self.ent_RetractDist.configure(textvariable = self.ent_RetractDist_var)
 
@@ -658,7 +658,7 @@ class Toplevel:
         self.ent_RetractSpeed.place(relx=0.565, rely=0.369, relheight=0.059
                 , relwidth=0.239, bordermode='ignore')
         self.ent_RetractSpeed.configure(takefocus="")
-        self.ent_RetractSpeed.configure(cursor="ibeam")
+        # self.ent_RetractSpeed.configure(cursor="ibeam")
         self.ent_RetractSpeed_var = tk.StringVar()
         self.ent_RetractSpeed.configure(textvariable = self.ent_RetractSpeed_var)
 
@@ -806,7 +806,7 @@ class Toplevel:
         self.ent_FirstLayerSpeed.place(relx=0.565, rely=0.546, relheight=0.059
                 , relwidth=0.239, bordermode='ignore')
         self.ent_FirstLayerSpeed.configure(takefocus="")
-        self.ent_FirstLayerSpeed.configure(cursor="ibeam")
+        # self.ent_FirstLayerSpeed.configure(cursor="ibeam")
         self.ent_FirstLayerSpeed_var = tk.StringVar()
         self.ent_FirstLayerSpeed.configure(textvariable = self.ent_FirstLayerSpeed_var)
 
@@ -814,7 +814,7 @@ class Toplevel:
         self.ent_TravelSpeed.place(relx=0.565, rely=0.619, relheight=0.059
                 , relwidth=0.239, bordermode='ignore')
         self.ent_TravelSpeed.configure(takefocus="")
-        self.ent_TravelSpeed.configure(cursor="ibeam")
+        # self.ent_TravelSpeed.configure(cursor="ibeam")
         self.ent_TravelSpeed_var = tk.StringVar()
         self.ent_TravelSpeed.configure(textvariable = self.ent_TravelSpeed_var)
 
@@ -826,7 +826,7 @@ class Toplevel:
         self.ent_LineWidth.place(relx=0.565, rely=0.708, relheight=0.059
                 , relwidth=0.239, bordermode='ignore')
         self.ent_LineWidth.configure(takefocus="")
-        self.ent_LineWidth.configure(cursor="ibeam")
+        # self.ent_LineWidth.configure(cursor="ibeam")
         self.ent_LineWidth_var = tk.StringVar()
         self.ent_LineWidth.configure(textvariable = self.ent_LineWidth_var)
 
@@ -834,7 +834,7 @@ class Toplevel:
         self.ent_LayerHeight.place(relx=0.565, rely=0.782, relheight=0.059
                 , relwidth=0.239, bordermode='ignore')
         self.ent_LayerHeight.configure(takefocus="")
-        self.ent_LayerHeight.configure(cursor="ibeam")
+        # self.ent_LayerHeight.configure(cursor="ibeam")
         self.ent_LayerHeight_var = tk.StringVar()
         self.ent_LayerHeight.configure(textvariable = self.ent_LayerHeight_var)
 
@@ -842,7 +842,7 @@ class Toplevel:
         self.ent_FilamentDia.place(relx=0.565, rely=0.855, relheight=0.059
                 , relwidth=0.239, bordermode='ignore')
         self.ent_FilamentDia.configure(takefocus="")
-        self.ent_FilamentDia.configure(cursor="ibeam")
+        # self.ent_FilamentDia.configure(cursor="ibeam")
         self.ent_FilamentDia_var = tk.StringVar()
         self.ent_FilamentDia.configure(textvariable = self.ent_FilamentDia_var)
 
@@ -943,7 +943,7 @@ class Toplevel:
         self.ent_Zoffset.place(relx=0.565, rely=0.929, relheight=0.059
                 , relwidth=0.239, bordermode='ignore')
         self.ent_Zoffset.configure(takefocus="")
-        self.ent_Zoffset.configure(cursor="ibeam")
+        # self.ent_Zoffset.configure(cursor="ibeam")
         self.ent_Zoffset_var = tk.StringVar()
         self.ent_Zoffset.configure(textvariable = self.ent_Zoffset_var)
 

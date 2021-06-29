@@ -5,7 +5,7 @@
 # version: 1.0.3
 
 """
-This script generates pattern fot Linear Advance K-factor calibration for Marlin (and other firmwares which use M900 to adjust pressure control algorithms)
+This script generates pattern for Linear Advance K-factor calibration for Marlin (and other firmwares)
 The pattern consists of a rectangular wall printed with sharp changes in speed and with K-factor increasing from bottom to top
 Print the pattern and find the height where it looks the best
 Corners should not bulge, flow should be homogeneous with as little influence from speed changes as possible, seam should be barely noticeable
@@ -222,6 +222,8 @@ else:
 defaultConfig = settings.SettingClass()
 
 root = tk.Tk()
+print("Running with Python {}".format(sys.version))
+print("Tkinter Tcl/Tk version {}".format(root.tk.call("info", "patchlevel")))
 gui_support.set_Tk_var()
 top = gui.Toplevel(root)
 gui_support.init(root, top)
