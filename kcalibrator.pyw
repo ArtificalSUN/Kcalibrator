@@ -13,7 +13,7 @@ Calculate desired K-factor from this height and parameters you used to generate 
 Good luck!
 """
 
-versionstring = "Kcalibrator v1.0.2 (Victor Shapovalov, 2021)"
+versionstring = "Kcalibrator v1.0.3-bugfix (Victor Shapovalov, 2021)"
 import os, sys, re
 from math import pi, sqrt
 
@@ -79,9 +79,10 @@ def G0(position, speed):
     return "G0 X{p[0]:.3f} Y{p[1]:.3f} Z{p[2]:.3f} F{s}\n".format(p=position, s=speed*60)
 
 def M900(k, fw = 'Marlin'):
-    if fw=='Marlin': return "M900 K{kf}\nM117 K={kf:.3f}\n".format(kf=k)
-    elif fw=='Klipper': return "SET_PRESSURE_ADVANCE ADVANCE={kf}\n".format(kf=k)
-    elif fw=='RepRafFirmware': return "M572 D0 S{kf}\n".format(kf=k)
+    if fw=='Marlin': return "M900 K{kf:.3f}\nM117 K={kf:.3f}\n".format(kf=k)
+    elif fw=='Klipper': return "SET_PRESSURE_ADVANCE ADVANCE={kf:.3f}\n".format(kf=k)
+    elif fw=='RepRapFirmware': return "M572 D0 S{kf:.3f}\n".format(kf=k)
+    else: return "M900 K{kf:.3f}\nM117 K={kf:.3f}\n".format(kf=k)
 
 def ABL(use, ABL_cmd = "G29"):
     if not use: return ""
