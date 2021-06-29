@@ -237,6 +237,7 @@ except IndexError:
 top.revalidate_all()
 top.btn_SaveConfig.configure(command = save_config)
 top.btn_Generate.configure(command = update_and_create)
+# top.btn_Calc.configure(command = top.calculate_K)
 
 # root.after(10, top.updateUI)
 root.mainloop()

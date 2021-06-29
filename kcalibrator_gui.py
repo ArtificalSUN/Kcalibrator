@@ -5,7 +5,7 @@
 #  in conjunction with Tcl version 8.6
 #    Jan 05, 2021 07:06:20 AM +03  platform: Windows NT
 
-import sys, re
+import sys, re, math
 from math import sqrt
 
 try:
@@ -82,7 +82,7 @@ class Toplevel:
         self.style.map('.',background=
             [('selected', _compcolor), ('active',_ana2color)])
 
-        top.geometry("620x385+881+507")
+        top.geometry("620x400+400+250")
         top.minsize(130, 10)
         top.maxsize(2948, 1181)
         top.resizable(0, 0)
@@ -92,7 +92,7 @@ class Toplevel:
         top.configure(highlightcolor="black")
 
         self.lf_PatternConfig = tk.LabelFrame(top)
-        self.lf_PatternConfig.place(relx=0.016, rely=0.026, relheight=0.61
+        self.lf_PatternConfig.place(relx=0.016, rely=0.001, relheight=0.59
                 , relwidth=0.581)
         self.lf_PatternConfig.configure(relief='groove')
         self.lf_PatternConfig.configure(font="-family {Segoe UI} -size 10 -weight bold -slant roman -underline 0 -overstrike 0")
@@ -388,7 +388,7 @@ class Toplevel:
                 , bordermode='ignore')
 
         self.lf_MachineConfig = tk.LabelFrame(top)
-        self.lf_MachineConfig.place(relx=0.016, rely=0.649, relheight=0.325
+        self.lf_MachineConfig.place(relx=0.016, rely=0.6, relheight=0.313
                 , relwidth=0.581)
         self.lf_MachineConfig.configure(relief='groove')
         self.lf_MachineConfig.configure(font="-family {Segoe UI} -size 10 -weight bold -slant roman -underline 0 -overstrike 0")
@@ -555,7 +555,7 @@ class Toplevel:
         self.ent_BuildVolZ.configure(textvariable = self.ent_BuildVolZ_var)
 
         self.lf_PrintConfig = tk.LabelFrame(top)
-        self.lf_PrintConfig.place(relx=0.613, rely=0.026, relheight=0.881
+        self.lf_PrintConfig.place(relx=0.613, rely=0.001, relheight=0.847
                 , relwidth=0.371)
         self.lf_PrintConfig.configure(relief='groove')
         self.lf_PrintConfig.configure(font="-family {Segoe UI} -size 10 -weight bold -slant roman -underline 0 -overstrike 0")
@@ -948,14 +948,52 @@ class Toplevel:
         self.ent_Zoffset.configure(textvariable = self.ent_Zoffset_var)
 
         self.btn_SaveConfig = ttk.Button(top)
-        self.btn_SaveConfig.place(relx=0.605, rely=0.912, height=25, width=116)
+        self.btn_SaveConfig.place(relx=0.605, rely=0.852, height=25, width=116)
         self.btn_SaveConfig.configure(takefocus="")
         self.btn_SaveConfig.configure(text='''Save configuration''')
 
         self.btn_Generate = ttk.Button(top)
-        self.btn_Generate.place(relx=0.798, rely=0.912, height=25, width=116)
+        self.btn_Generate.place(relx=0.798, rely=0.852, height=25, width=116)
         self.btn_Generate.configure(takefocus="")
         self.btn_Generate.configure(text='''Generate G-code''')
+
+        self._lbl_Kcalc1 = ttk.Label(top)
+        self._lbl_Kcalc1.place(relx=0.016, rely=0.925, height=22
+                , width=250, bordermode='ignore')
+        self._lbl_Kcalc1.configure(background="#d9d9d9")
+        self._lbl_Kcalc1.configure(foreground="#000000")
+        self._lbl_Kcalc1.configure(font="-family {Segoe UI} -size 10 -weight normal -slant roman -underline 0 -overstrike 0")
+        self._lbl_Kcalc1.configure(relief="flat")
+        self._lbl_Kcalc1.configure(anchor='w')
+        self._lbl_Kcalc1.configure(justify='left')
+        self._lbl_Kcalc1.configure(takefocus="0")
+        self._lbl_Kcalc1.configure(text='''Height with the best quality:              mm''')
+
+        self.ent_Hmeasured = ttk.Entry(top)
+        self.ent_Hmeasured.place(relx=0.283, rely=0.925, height=22
+                , width=50, bordermode='ignore')
+        self.ent_Hmeasured.configure(takefocus="")
+        self.ent_Hmeasured_var = tk.StringVar()
+        # self.ent_Hmeasured_var.set("2.5")
+        self.ent_Hmeasured.configure(textvariable = self.ent_Hmeasured_var)
+        self.ent_Hmeasured.configure(validate = "key", validatecommand = (self.ent_Hmeasured.register(validate), "%P"))
+
+        self.lbl_K = ttk.Label(top)
+        self.lbl_K.place(relx=0.605, rely=0.925, height=22
+                , width=250, bordermode='ignore')
+        self.lbl_K.configure(background="#d9d9d9")
+        self.lbl_K.configure(foreground="#007c00")
+        self.lbl_K.configure(font="-family {Segoe UI} -size 10 -weight bold -slant roman -underline 0 -overstrike 0")
+        self.lbl_K.configure(relief="flat")
+        self.lbl_K.configure(anchor='w')
+        self.lbl_K.configure(justify='left')
+        self.lbl_K.configure(takefocus="0")
+        self.lbl_K.configure(text=''' ''')
+
+        # self.btn_Calc = ttk.Button(top)
+        # self.btn_Calc.place(relx=0.385, rely=0.92, height=25, width=110)
+        # self.btn_Calc.configure(takefocus="")
+        # self.btn_Calc.configure(text='''Calculate K-factor''')
 
     # Attaching traces and handlers
     def attach(self):
@@ -965,9 +1003,15 @@ class Toplevel:
         self.ent_BuildVolY_var.trace_add('write', lambda name, index, mode: self.validate_pattern_Y())
         self.ent_BuildVolZ_var.trace_add('write', lambda name, index, mode: self.validate_pattern_Z())
         self.ent_StartK_var.trace_add('write', lambda name, index, mode: self.validate_pattern_Z())
+        self.ent_StartK_var.trace_add('write', lambda name, index, mode: self.calculate_K())
         self.ent_StopK_var.trace_add('write', lambda name, index, mode: self.validate_pattern_Z())
         self.ent_StepK_var.trace_add('write', lambda name, index, mode: self.validate_pattern_Z())
+        self.ent_StepK_var.trace_add('write', lambda name, index, mode: self.calculate_K())
         self.ent_LayersPerK_var.trace_add('write', lambda name, index, mode: self.validate_pattern_Z())
+        self.ent_LayersPerK_var.trace_add('write', lambda name, index, mode: self.calculate_K())
+        self.ent_LayerHeight_var.trace_add('write', lambda name, index, mode: self.validate_pattern_Z())
+        self.ent_LayerHeight_var.trace_add('write', lambda name, index, mode: self.calculate_K())
+        self.ent_Hmeasured_var.trace_add('write', lambda name, index, mode: self.calculate_K())
         self.chk_UseAutoleveling.configure(command = self.handle_ABL_chk)
         # self.scl_CoolingPerc.configure(command = self.handle_Cooling_scl)
         self.scl_CoolingPerc_var.trace_add('write', lambda name, index, mode: self.handle_Cooling_scl())
@@ -1036,6 +1080,21 @@ class Toplevel:
         except:
             height = 0
         return height
+
+    def calculate_K(self):
+        try:
+            H = float(self.ent_Hmeasured_var.get())
+            Kn = float(self.ent_StartK_var.get())
+            L = float(self.ent_LayerHeight_var.get())
+            dK = float(self.ent_StepK_var.get())
+            Nsk = float(self.ent_LayersPerK_var.get())
+            result = Kn + int(H/(L*Nsk))*dK
+            self.lbl_K['text'] = "Calculaded K-factor = %s" % round(result, 3)
+            self.lbl_K.configure(foreground="#007c00")
+            return result
+        except:
+            self.lbl_K['text'] = "Error calculating K-factor"
+            self.lbl_K.configure(foreground="#ff0000")
 
     def validate_pattern_X(self):
         # size = float(self.ent_PatternXsize.get()) if self.ent_PatternXsize.get() else 0.0
