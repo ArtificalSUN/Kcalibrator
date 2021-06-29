@@ -967,6 +967,7 @@ class Toplevel:
         self.ent_StartK_var.trace_add('write', lambda name, index, mode: self.validate_pattern_Z())
         self.ent_StopK_var.trace_add('write', lambda name, index, mode: self.validate_pattern_Z())
         self.ent_StepK_var.trace_add('write', lambda name, index, mode: self.validate_pattern_Z())
+        self.ent_LayersPerK_var.trace_add('write', lambda name, index, mode: self.validate_pattern_Z())
         self.chk_UseAutoleveling.configure(command = self.handle_ABL_chk)
         # self.scl_CoolingPerc.configure(command = self.handle_Cooling_scl)
         self.scl_CoolingPerc_var.trace_add('write', lambda name, index, mode: self.handle_Cooling_scl())
@@ -1075,7 +1076,7 @@ class Toplevel:
             result = self.pattern_height() < float(self.ent_BuildVolZ.get()) - 10
         except:
             result = False
-        self.lbl_PatternZsize['text'] = "x %s mm" % self.pattern_height()
+        self.lbl_PatternZsize['text'] = "x %.2f mm" % self.pattern_height()
         self.lbl_PatternZsize.configure(foreground="#000000" if result else "#ff0000")
         return result
 

@@ -2,7 +2,7 @@
 # coding: utf-8
 # author: Victor Shapovalov (@ArtificalSUN, https://github.com/ArtificalSUN), 2021
 # Configuration contributed by Foreytor (https://github.com/Foreytor)
-# version: 1.0.2
+# version: 1.0.3
 
 """
 This script generates pattern fot Linear Advance K-factor calibration for Marlin (and other firmwares which use M900 to adjust pressure control algorithms)
@@ -218,6 +218,7 @@ if os.path.exists(configPath):
     except: currentConfig.save_config(configPath)
 else:
     currentConfig.save_config(configPath)
+defaultConfig = settings.SettingClass()
 
 root = tk.Tk()
 gui_support.set_Tk_var()
@@ -225,7 +226,11 @@ top = gui.Toplevel(root)
 gui_support.init(root, top)
 
 top.attach()
-top.updateUI(currentConfig)
+try: top.updateUI(currentConfig)
+except IndexError:
+    defaultConfig.save_config(configPath)
+    currentConfig.read_config(configPath)
+    top.updateUI(currentConfig)
 top.revalidate_all()
 top.btn_SaveConfig.configure(command = save_config)
 top.btn_Generate.configure(command = update_and_create)
