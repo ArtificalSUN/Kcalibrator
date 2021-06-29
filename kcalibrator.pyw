@@ -13,7 +13,7 @@ Calculate desired K-factor from this height and parameters you used to generate 
 Good luck!
 """
 
-versionstring = "Kcalibrator v1.0.3-bugfix (Victor Shapovalov, 2021)"
+versionstring = "Kcalibrator v1.0.4 (Victor Shapovalov, 29.06.2021)"
 import os, sys, re
 from math import pi, sqrt
 
