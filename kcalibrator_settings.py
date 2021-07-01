@@ -28,9 +28,9 @@ class SettingClass():
         self.double_perimeter = True # print test with two perimeters instead of one
         self.use_ABL = False # adds autoleveling to start g-code
         self.ABL_type = 'G29' # gcode to start ABL
-        self.ABL_type_list = ['G29','M83',]
-        self.firmware = 'Marlin' # firmware type
-        self.firmware_list = ['Marlin','Klipper','RepRapFirmware',]
+        self.ABL_type_list = ['G29','M83','G32']
+        self.firmware = 'Marlin/Lerdge' # firmware type
+        self.firmware_list = ['Marlin/Lerdge','Klipper','RepRapFirmware',]
         self.kinematics = 'Cartesian' # kinematics type
         self.kinematics_list = ['Cartesian','Delta',]
         # self.build_vol = (235, 235, 250) # machine build volume
@@ -202,7 +202,7 @@ class SettingClass():
         self.double_perimeter = True if "true" in config.get("Config", "double_perimeter").lower() else False
         self.use_ABL = True if "true" in config.get("Config", "use_ABL").lower() else False
         self.ABL_type = str(config.get("Config", "ABL_type")) if str(config.get("Config", "ABL_type")) in self.ABL_type_list else "G29"
-        self.firmware = str(config.get("Config", "firmware")) if str(config.get("Config", "firmware")) in self.firmware_list else "Marlin"
+        self.firmware = str(config.get("Config", "firmware")) if str(config.get("Config", "firmware")) in self.firmware_list else "Marlin/Lerdge"
         self.kinematics = str(config.get("Config", "kinematics")) if str(config.get("Config", "kinematics")) in self.kinematics_list else "Cartesian"
 
         self.def_fil_dia = float(config.get("Config", "def_fil_dia"))

@@ -420,22 +420,22 @@ class Toplevel:
         self.cmb_Kinematics_var = tk.StringVar()
         self.cmb_Kinematics.configure(textvariable = self.cmb_Kinematics_var)
 
-        self._lbl_FIimware = ttk.Label(self.lf_MachineConfig)
-        self._lbl_FIimware.place(relx=0.528, rely=0.2, height=22, width=60
+        self._lbl_Firmware = ttk.Label(self.lf_MachineConfig)
+        self._lbl_Firmware.place(relx=0.528, rely=0.2, height=22, width=60
                 , bordermode='ignore')
-        self._lbl_FIimware.configure(background="#d9d9d9")
-        self._lbl_FIimware.configure(foreground="#000000")
-        self._lbl_FIimware.configure(font="-family {Segoe UI} -size 10 -weight normal -slant roman -underline 0 -overstrike 0")
-        self._lbl_FIimware.configure(relief="flat")
-        self._lbl_FIimware.configure(anchor='w')
-        self._lbl_FIimware.configure(justify='left')
-        self._lbl_FIimware.configure(takefocus="0")
-        self._lbl_FIimware.configure(text='''Firmware''')
+        self._lbl_Firmware.configure(background="#d9d9d9")
+        self._lbl_Firmware.configure(foreground="#000000")
+        self._lbl_Firmware.configure(font="-family {Segoe UI} -size 10 -weight normal -slant roman -underline 0 -overstrike 0")
+        self._lbl_Firmware.configure(relief="flat")
+        self._lbl_Firmware.configure(anchor='w')
+        self._lbl_Firmware.configure(justify='left')
+        self._lbl_Firmware.configure(takefocus="0")
+        self._lbl_Firmware.configure(text='''Firmware''')
 
         self.cmb_Firmware = ttk.Combobox(self.lf_MachineConfig, state = ("readonly",))
         self.cmb_Firmware.place(relx=0.694, rely=0.2, relheight=0.2
                 , relwidth=0.286, bordermode='ignore')
-        # self.cmb_Firmware_value_list = ['Marlin','Klipper','RepRapFirmware',]
+        # self.cmb_Firmware_value_list = ['Marlin/Lerdge','Klipper','RepRapFirmware',]
         # self.cmb_Firmware.configure(values=self.cmb_Firmware_value_list)
         self.cmb_Firmware.configure(font="-family {Segoe UI} -size 10 -weight normal -slant roman -underline 0 -overstrike 0")
         self.cmb_Firmware.configure(takefocus="")
@@ -884,7 +884,7 @@ class Toplevel:
 
         self._lbl_unitsFirstLayerSpeed = ttk.Label(self.lf_PrintConfig)
         self._lbl_unitsFirstLayerSpeed.place(relx=0.804, rely=0.546, height=22
-                , width=30, bordermode='ignore')
+                , width=40, bordermode='ignore')
         self._lbl_unitsFirstLayerSpeed.configure(background="#d9d9d9")
         self._lbl_unitsFirstLayerSpeed.configure(foreground="#000000")
         self._lbl_unitsFirstLayerSpeed.configure(font="-family {Segoe UI} -size 10 -weight normal -slant roman -underline 0 -overstrike 0")
@@ -892,11 +892,11 @@ class Toplevel:
         self._lbl_unitsFirstLayerSpeed.configure(anchor='w')
         self._lbl_unitsFirstLayerSpeed.configure(justify='left')
         self._lbl_unitsFirstLayerSpeed.configure(takefocus="0")
-        self._lbl_unitsFirstLayerSpeed.configure(text='''mm''')
+        self._lbl_unitsFirstLayerSpeed.configure(text='''mm/s''')
 
         self._lbl_unitsTravelSpeed = ttk.Label(self.lf_PrintConfig)
         self._lbl_unitsTravelSpeed.place(relx=0.804, rely=0.619, height=22
-                , width=30, bordermode='ignore')
+                , width=40, bordermode='ignore')
         self._lbl_unitsTravelSpeed.configure(background="#d9d9d9")
         self._lbl_unitsTravelSpeed.configure(foreground="#000000")
         self._lbl_unitsTravelSpeed.configure(font="-family {Segoe UI} -size 10 -weight normal -slant roman -underline 0 -overstrike 0")
@@ -904,7 +904,7 @@ class Toplevel:
         self._lbl_unitsTravelSpeed.configure(anchor='w')
         self._lbl_unitsTravelSpeed.configure(justify='left')
         self._lbl_unitsTravelSpeed.configure(takefocus="0")
-        self._lbl_unitsTravelSpeed.configure(text='''mm''')
+        self._lbl_unitsTravelSpeed.configure(text='''mm/s''')
 
         self.scl_CoolingPerc = ttk.Scale(self.lf_PrintConfig, from_=0, to=20)
         self.scl_CoolingPerc.place(relx=0.261, rely=0.215, relwidth=0.522

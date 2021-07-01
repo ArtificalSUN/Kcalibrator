@@ -13,7 +13,7 @@ Calculate desired K-factor from this height and parameters you used to generate 
 Good luck!
 """
 
-versionstring = "Kcalibrator v1.0.4 (Victor Shapovalov, 29.06.2021)"
+versionstring = "Kcalibrator v1.0.5-alpha (Victor Shapovalov, 2021)"
 import os, sys, re
 from math import pi, sqrt
 
@@ -78,8 +78,8 @@ def G1(position, length, speed):
 def G0(position, speed):
     return "G0 X{p[0]:.3f} Y{p[1]:.3f} Z{p[2]:.3f} F{s}\n".format(p=position, s=speed*60)
 
-def M900(k, fw = 'Marlin'):
-    if fw=='Marlin': return "M900 K{kf:.3f}\nM117 K={kf:.3f}\n".format(kf=k)
+def M900(k, fw = 'Marlin/Lerdge'):
+    if fw=='Marlin/Lerdge': return "M900 K{kf:.3f}\nM117 K={kf:.3f}\n".format(kf=k)
     elif fw=='Klipper': return "SET_PRESSURE_ADVANCE ADVANCE={kf:.3f}\n".format(kf=k)
     elif fw=='RepRapFirmware': return "M572 D0 S{kf:.3f}\n".format(kf=k)
     else: return "M900 K{kf:.3f}\nM117 K={kf:.3f}\n".format(kf=k)
@@ -102,7 +102,7 @@ def creategcode(currentConfig):
     """;Generated with {vs}
 M190 S{T_b}
 M109 S{T_h}
-G28{G29}
+G28{ABL}
 G90
 M82
 M900 K0
@@ -111,7 +111,7 @@ G0 Z{zo:.3f} F300
 G92 Z{zl:.3f}
 G0 Z2 F600
 M106 S{C}\n""".format(vs = versionstring, T_h=currentConfig.temperature[0], T_b=currentConfig.temperature[1], C=int(currentConfig.def_cooling/100*255), zl=currentConfig.def_layer, zo=currentConfig.def_layer+currentConfig.z_offset, F_t=currentConfig.def_speed_travel*60, F_p=currentConfig.def_speed_print*60, X1=1, Y1=10,
-                            Y2=currentConfig.bed_size[1]-10, X2=1+currentConfig.def_line_width, E1=ex.extrude(currentConfig.bed_size[1]-20), E2 = ex.extrude(currentConfig.bed_size[1]-20), G29 = ABL(currentConfig.use_ABL, currentConfig.ABL_type))
+                            Y2=currentConfig.bed_size[1]-10, X2=1+currentConfig.def_line_width, E1=ex.extrude(currentConfig.bed_size[1]-20), E2 = ex.extrude(currentConfig.bed_size[1]-20), ABL = ABL(currentConfig.use_ABL, currentConfig.ABL_type))
 
     gcode_end = \
     """M104 S0
