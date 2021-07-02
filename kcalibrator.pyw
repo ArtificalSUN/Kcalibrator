@@ -92,6 +92,14 @@ def dist(start, end):
     return sqrt((end[0]-start[0])**2+(end[1]-start[1])**2+(end[2]-start[2])**2)
 
 
+def initial_k_factor(fw='Marlin/Lerdge') -> str:
+    if fw == 'Klipper':
+        return "SET_VELOCITY_LIMIT SQUARE_CORNER_VELOCITY=1 ACCEL=500\nSET_PRESSURE_ADVANCE ADVANCE=0\n"
+    elif fw == 'RepRapFirmware':
+        return "M572 D0 S0\n"
+    else:
+        return "M900 K0\n"
+
 def creategcode(currentConfig):
 
     print('started creategcode')
@@ -105,7 +113,6 @@ M109 S{T_h}
 G28{ABL}
 G90
 M82
-M900 K0
 G92 E0
 G0 Z{zo:.3f} F300
 G92 Z{zl:.3f}
@@ -122,7 +129,7 @@ G0 Z5 F600
 G90
 G0 X0 Y0 F{F_t}""".format(retr = "" if currentConfig.retract_at_layer_change else "\nG1 E-{R} F{RS}".format(R=currentConfig.retract[0], RS = currentConfig.retract[1]*60), F_t = currentConfig.def_speed_travel*60)
 
-    gcode = [gcode_start,]
+    gcode = [gcode_start, initial_k_factor(currentConfig.firmware), ]
 
     #first layer
     ex.e=0
