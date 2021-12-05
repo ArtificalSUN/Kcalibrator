@@ -15,7 +15,7 @@ Good luck!
 
 versionstring = "Kcalibrator v1.0.5-alpha (Victor Shapovalov, 2021)"
 import os, sys, re
-from math import pi, sqrt
+from math import pi, sqrt, sin, cos
 
 
 import tkinter as tk
@@ -45,6 +45,14 @@ def moverel(position, *args): # relative move from position to new_position
     except IndexError: pass
     return new_position
 
+def cornerMoves(startAngle, radius, center):
+    moves = []
+
+    movements_per_quater_circle = 50
+    for k in range(0, movements_per_quater_circle):
+        angle = startAngle - (k / movements_per_quater_circle) * pi / 2
+        moves.append((center[0] + cos(angle) * radius, center[1] + sin(angle) * radius))
+    return moves
 
 class Extruder: # virtual extruder class
     def __init__(self, e, currentConfig):
@@ -130,9 +138,33 @@ G0 X0 Y0 F{F_t}""".format(retr = "" if currentConfig.retract_at_layer_change els
     current_pos = [1+currentConfig.def_line_width, 10, currentConfig.def_layer]
     # current_e = 0
     layer = []
-    for i in range(-10, 10):
-        loop = rectangle(bed_center[0], bed_center[1], currentConfig.size[0]+2*i*currentConfig.def_line_width, currentConfig.size[1]+2*i*currentConfig.def_line_width)
-        next_pos = moveabs(current_pos, loop[3][0], loop[3][1])
+
+    brimStart = -10
+    brim_line_width = currentConfig.def_line_width * 0.9
+    for i in range(10, brimStart, -1):
+        rect = rectangle(bed_center[0], bed_center[1], currentConfig.size[0]+2*i*brim_line_width, currentConfig.size[1]+2*i*brim_line_width)
+        if i > 0:
+            loop = []
+            rect = rectangle(bed_center[0], bed_center[1], currentConfig.size[0]+2*i*brim_line_width, currentConfig.size[1]+2*i*brim_line_width)
+
+            corner_radius = i*brim_line_width
+            loop.append((rect[-1][0] - corner_radius, rect[-1][1]))
+
+            center = (rect[0][0] + corner_radius, rect[0][1] + corner_radius)
+            loop += cornerMoves(-pi / 2, corner_radius, center)
+
+            center = (rect[1][0] + corner_radius, rect[1][1] - corner_radius)
+            loop += cornerMoves(pi, corner_radius, center)
+
+            center = (rect[2][0] - corner_radius, rect[2][1] - corner_radius)
+            loop += cornerMoves(pi / 2, corner_radius, center)
+
+            center = (rect[3][0] - corner_radius, rect[3][1] + corner_radius)
+            loop += cornerMoves(0, corner_radius, center)
+        else:
+            loop = rect
+
+        next_pos = moveabs(current_pos, loop[-1][0], loop[-1][1])
         layer.append(G0(next_pos, currentConfig.def_speed_travel))
         current_pos = next_pos[:]
         for point in loop:
