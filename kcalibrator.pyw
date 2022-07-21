@@ -169,7 +169,7 @@ G0 X0 Y0 F{F_t}""".format(retr = "" if currentConfig.retract_at_layer_change els
                         G1((corners[3][0], corners[3][1]+currentConfig.size[1]/2, current_z), ex.extrude(abs(currentConfig.size[1]/2)), currentConfig.speed_slow),
                         G1((corners[2][0], corners[2][1], current_z), ex.extrude(abs(currentConfig.size[1]/2)), currentConfig.speed_fast),
                         G1((corners[2][0]-currentConfig.size[0]*currentConfig.path_spd_fractions[2], corners[2][1], current_z), ex.extrude(abs(currentConfig.size[0]*currentConfig.path_spd_fractions[2])), currentConfig.speed_fast),
-                        G1((bed_center[0]+currentConfig.def_line_width/2, bed_center[1]+currentConfig.size[1]/2, current_z), ex.extrude(abs(bed_center[0]+currentConfig.def_line_width/2-corners[2][0])), currentConfig.speed_slow),
+                        G1((bed_center[0]+currentConfig.def_line_width/2, bed_center[1]+currentConfig.size[1]/2, current_z), ex.extrude(abs(corners[1][0]+currentConfig.size[0]*currentConfig.path_spd_fractions[0]-bed_center[0])), currentConfig.speed_slow),
                         "G92 E0\n",
                         "G1 E-{R} F{S}\n".format(R=currentConfig.retract[0], S=currentConfig.retract[1]*60) if (currentConfig.retract_at_layer_change and not currentConfig.double_perimeter) else ""])
             current_pos = (bed_center[0]+currentConfig.def_line_width/2, bed_center[1]+currentConfig.size[1]/2, current_z)
