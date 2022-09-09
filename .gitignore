@@ -4,3 +4,5 @@ dist/*
 *.gcode
 Kcalibrator.cfg
 __pycache__
+kcalibrator.spec
+*.exe
