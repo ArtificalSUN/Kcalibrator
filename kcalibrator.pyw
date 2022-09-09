@@ -14,7 +14,7 @@ Good luck!
 """
 
 versionstring = "Kcalibrator v1.0.4-bugfix (Victor Shapovalov, 2022)"
-import os, sys, re
+import os, sys
 from math import pi, sqrt, sin, cos
 
 
@@ -113,13 +113,12 @@ M109 S{T_h}
 G28{ABL}
 G90
 M82
-M900 K0
-G92 E0
+{zeroadv}G92 E0
 G0 Z{zo:.3f} F300
 G92 Z{zl:.3f}
 G0 Z2 F600
 M106 S{C}\n""".format(vs = versionstring, T_h=currentConfig.temperature[0], T_b=currentConfig.temperature[1], C=int(currentConfig.def_cooling/100*255), zl=currentConfig.def_layer, zo=currentConfig.def_layer+currentConfig.z_offset, F_t=currentConfig.def_speed_travel*60, F_p=currentConfig.def_speed_print*60, X1=1, Y1=10,
-                            Y2=currentConfig.bed_size[1]-10, X2=1+currentConfig.def_line_width, E1=ex.extrude(currentConfig.bed_size[1]-20), E2 = ex.extrude(currentConfig.bed_size[1]-20), ABL = ABL(currentConfig.use_ABL, currentConfig.ABL_type))
+                            Y2=currentConfig.bed_size[1]-10, X2=1+currentConfig.def_line_width, E1=ex.extrude(currentConfig.bed_size[1]-20), E2 = ex.extrude(currentConfig.bed_size[1]-20), ABL = ABL(currentConfig.use_ABL, currentConfig.ABL_type), zeroadv = M900(0, currentConfig.firmware))
 
     gcode_end = \
     """M104 S0
