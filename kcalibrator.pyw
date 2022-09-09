@@ -1,8 +1,8 @@
 #! /usr/bin/env python
 #  -*- coding: utf-8 -*-
-# author: Victor Shapovalov (@ArtificalSUN, https://github.com/ArtificalSUN), 2021
+# author: Victor Shapovalov (@ArtificalSUN, https://github.com/ArtificalSUN), 2022
 # Configuration contributed by Foreytor (https://github.com/Foreytor)
-# version: 1.0.3
+# version: 1.0.4-bugfix
 
 """
 This script generates pattern for Linear Advance K-factor calibration for Marlin (and other firmwares)
@@ -13,7 +13,7 @@ Calculate desired K-factor from this height and parameters you used to generate 
 Good luck!
 """
 
-versionstring = "Kcalibrator v1.0.5-alpha (Victor Shapovalov, 2021)"
+versionstring = "Kcalibrator v1.0.4-bugfix (Victor Shapovalov, 2022)"
 import os, sys, re
 from math import pi, sqrt, sin, cos
 
