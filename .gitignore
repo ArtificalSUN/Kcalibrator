@@ -1,4 +1,4 @@
-MKS_WIFI_PS_upload.spec
+kcalibrator.spec
 build/*
 dist/*
 *.gcode
