@@ -94,7 +94,7 @@ def M900(k, fw = 'Marlin/Lerdge'):
 
 def ABL(use, ABL_cmd = "G29"):
     if not use: return ""
-    else: return "\n"+ABL_cmd
+    else: return ABL_cmd+"\n"
 
 def dist(start, end):
     return sqrt((end[0]-start[0])**2+(end[1]-start[1])**2+(end[2]-start[2])**2)
@@ -110,8 +110,8 @@ def creategcode(currentConfig):
     """;Generated with {vs}
 M190 S{T_b}
 M109 S{T_h}
-G28{ABL}
-G90
+G28
+{ABL}G90
 M82
 {zeroadv}G92 E0
 G0 Z{zo:.3f} F300

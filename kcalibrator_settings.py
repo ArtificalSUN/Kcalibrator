@@ -28,7 +28,7 @@ class SettingClass():
         self.double_perimeter = True # print test with two perimeters instead of one
         self.use_ABL = False # adds autoleveling to start g-code
         self.ABL_type = 'G29' # gcode to start ABL
-        self.ABL_type_list = ['G29','M83','G32']
+        self.ABL_type_list = ['G29','M83','G32', 'BED_MESH_CALIBRATE',]
         self.firmware = 'Marlin/Lerdge' # firmware type
         self.firmware_list = ['Marlin/Lerdge','Klipper','RepRapFirmware',]
         self.kinematics = 'Cartesian' # kinematics type
