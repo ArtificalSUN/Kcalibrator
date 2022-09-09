@@ -1,0 +1,6 @@
+MKS_WIFI_PS_upload.spec
+build/*
+dist/*
+*.gcode
+Kcalibrator.cfg
+__pycache__
