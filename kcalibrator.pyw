@@ -101,9 +101,21 @@ def dist(start, end):
 
 
 def creategcode(currentConfig):
+    dfn = "KF_{b}-{e}-{s}_H{t[0]}-B{t[1]}.gcode"
+    file_name = dfn.format(b=currentConfig.k_start,
+                           e=currentConfig.k_end,
+                           s=currentConfig.k_step,
+                           t=currentConfig.temperature)
+    path = fldg.asksaveasfilename(title = "Save the G-code",
+                                  filetypes = (("G-code files","*.gcode"),("All files","*.*")),
+                                  defaultextension = ".gcode",
+                                  initialfile = file_name)
+    # path = fldg.asksaveasfile(title = "Save the G-code", filetypes = (("G-code files","*.gcode"),("All files","*.*")), defaultextension = ".gcode", initialfile = "KF_{b}-{e}-{s}_H{t[0]}-B{t[1]}.gcode".format(b=currentConfig.k_start, e=currentConfig.k_end, s=currentConfig.k_step, t=currentConfig.temperature))
+    if not path:
+        print('file save cancelled')
+        return
 
     print('started creategcode')
-
     ex = Extruder(0, currentConfig)
 
     gcode_start = \
@@ -226,8 +238,7 @@ G0 X0 Y0 F{F_t}""".format(retr = "" if currentConfig.retract_at_layer_change els
             gcode.extend(layer)
 
     gcode.append(gcode_end)
-    path = fldg.asksaveasfilename(title = "Save the G-code", filetypes = (("G-code files","*.gcode"),("All files","*.*")), defaultextension = ".gcode", initialfile = "KF_{b}-{e}-{s}_H{t[0]}-B{t[1]}.gcode".format(b=currentConfig.k_start, e=currentConfig.k_end, s=currentConfig.k_step, t=currentConfig.temperature))
-    # path = fldg.asksaveasfile(title = "Save the G-code", filetypes = (("G-code files","*.gcode"),("All files","*.*")), defaultextension = ".gcode", initialfile = "KF_{b}-{e}-{s}_H{t[0]}-B{t[1]}.gcode".format(b=currentConfig.k_start, e=currentConfig.k_end, s=currentConfig.k_step, t=currentConfig.temperature))
+
     with open(path, "w") as out:
         out.writelines(gcode)
     print('stopped creategcode')
