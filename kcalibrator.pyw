@@ -26,24 +26,28 @@ import kcalibrator_gui as gui
 import kcalibrator_gui_support as gui_support
 import kcalibrator_settings as settings
 
-def frange(start, stop, step): # float range!
+
+def frange(start, stop, step):  # float range!
     while start < stop:
         yield start
         start += step
 
-def moveabs(position, *args): # absolute move from position to new_position
+
+def moveabs(position, *args):  # absolute move from position to new_position
     new_position = position[:]
     try:
-        for i, coordinate in enumerate(args): new_position[i]=coordinate
+        for i, coordinate in enumerate(args): new_position[i] = coordinate
     except IndexError: pass
     return new_position
 
-def moverel(position, *args): # relative move from position to new_position
+
+def moverel(position, *args):  # relative move from position to new_position
     new_position = position[:]
     try:
-        for i, coordinate in enumerate(args): new_position[i]+=coordinate
+        for i, coordinate in enumerate(args): new_position[i] += coordinate
     except IndexError: pass
     return new_position
+
 
 def cornerMoves(startAngle, radius, center):
     moves = []
@@ -54,7 +58,8 @@ def cornerMoves(startAngle, radius, center):
         moves.append((center[0] + cos(angle) * radius, center[1] + sin(angle) * radius))
     return moves
 
-class Extruder: # virtual extruder class
+
+class Extruder:  # virtual extruder class
     def __init__(self, e, currentConfig):
         self.e = e
         self.def_line_width = currentConfig.def_line_width
@@ -77,14 +82,17 @@ class Extruder: # virtual extruder class
     def deretract(self): pass
 
 
-def rectangle(x_center, y_center, x_size, y_size): # construct rectangle from center
+def rectangle(x_center, y_center, x_size, y_size):  # construct rectangle from center
     return [(x_center-x_size/2, y_center-y_size/2), (x_center-x_size/2, y_center+y_size/2), (x_center+x_size/2, y_center+y_size/2), (x_center+x_size/2, y_center-y_size/2)]
+
 
 def G1(position, length, speed):
     return "G1 X{p[0]:.3f} Y{p[1]:.3f} Z{p[2]:.3f} E{l:.5f} F{s}\n".format(p=position, l=length, s=speed*60)
 
+
 def G0(position, speed):
     return "G0 X{p[0]:.3f} Y{p[1]:.3f} Z{p[2]:.3f} F{s}\n".format(p=position, s=speed*60)
+
 
 def M900(k, fw = 'Marlin/Lerdge'):
     if fw=='Marlin/Lerdge': return "M900 K{kf:.3f}\nM117 K={kf:.3f}\n".format(kf=k)
@@ -92,9 +100,11 @@ def M900(k, fw = 'Marlin/Lerdge'):
     elif fw=='RepRapFirmware': return "M572 D0 S{kf:.3f}\n".format(kf=k)
     else: return "M900 K{kf:.3f}\nM117 K={kf:.3f}\n".format(kf=k)
 
+
 def ABL(use, ABL_cmd = "G29"):
     if not use: return ""
     else: return ABL_cmd+"\n"
+
 
 def dist(start, end):
     return sqrt((end[0]-start[0])**2+(end[1]-start[1])**2+(end[2]-start[2])**2)
@@ -249,10 +259,12 @@ def save_config():
     currentConfig.updatesettings(top)
     currentConfig.save_config(configPath)
 
+
 def update_and_create():
     global currentConfig, top
     currentConfig.updatesettings(top)
     creategcode(currentConfig)
+
 
 configPath = "Kcalibrator.cfg"
 currentConfig = settings.SettingClass()
