@@ -14,12 +14,10 @@ Good luck!
 """
 
 versionstring = "Kcalibrator v1.0.4-bugfix (Victor Shapovalov, 2022)"
-import os, sys
+import sys
 from math import pi, sqrt, sin, cos
 
-
 import tkinter as tk
-import tkinter.ttk as ttk
 import tkinter.filedialog as fldg
 
 import kcalibrator_gui as gui
@@ -122,10 +120,10 @@ def creategcode(currentConfig):
                                   initialfile = file_name)
     # path = fldg.asksaveasfile(title = "Save the G-code", filetypes = (("G-code files","*.gcode"),("All files","*.*")), defaultextension = ".gcode", initialfile = "KF_{b}-{e}-{s}_H{t[0]}-B{t[1]}.gcode".format(b=currentConfig.k_start, e=currentConfig.k_end, s=currentConfig.k_step, t=currentConfig.temperature))
     if not path:
-        print('file save cancelled')
+        print('[generator] File save cancelled')
         return
 
-    print('started creategcode')
+    print('[generator] Started creategcode')
     ex = Extruder(0, currentConfig)
 
     gcode_start = \
@@ -251,47 +249,43 @@ G0 X0 Y0 F{F_t}""".format(retr = "" if currentConfig.retract_at_layer_change els
 
     with open(path, "w") as out:
         out.writelines(gcode)
-    print('stopped creategcode')
+    print('[generator] Stopped creategcode')
 
 
 def save_config():
-    global currentConfig, top
-    currentConfig.updatesettings(top)
-    currentConfig.save_config(configPath)
+    global configStorage, top
+    configStorage.current.update(top)
+    configStorage.save_config()
 
 
 def update_and_create():
-    global currentConfig, top
-    currentConfig.updatesettings(top)
-    creategcode(currentConfig)
+    global configStorage, top
+    configStorage.current.update(top)
+    creategcode(configStorage.current)
 
 
-configPath = "Kcalibrator.cfg"
-currentConfig = settings.SettingClass()
-if os.path.exists(configPath):
-    try: currentConfig.read_config(configPath)
-    except: currentConfig.save_config(configPath)
-else:
-    currentConfig.save_config(configPath)
-defaultConfig = settings.SettingClass()
+if __name__ == '__main__':
+    configPath = "Kcalibrator.cfg"
+    configStorage = settings.SettingClass(configPath)
+    configStorage.try_load()
 
-root = tk.Tk()
-print("Running with Python {}".format(sys.version))
-print("Tkinter Tcl/Tk version {}".format(root.tk.call("info", "patchlevel")))
-gui_support.set_Tk_var()
-top = gui.Toplevel(root)
-gui_support.init(root, top)
+    root = tk.Tk()
+    print("[main] Running with Python {}".format(sys.version))
+    print("[main] Tkinter Tcl/Tk version {}".format(root.tk.call("info", "patchlevel")))
+    gui_support.set_Tk_var()
+    top = gui.Toplevel(root)
+    gui_support.init(root, top)
 
-top.attach()
-try: top.updateUI(currentConfig)
-except IndexError:
-    defaultConfig.save_config(configPath)
-    currentConfig.read_config(configPath)
-    top.updateUI(currentConfig)
-top.revalidate_all()
-top.btn_SaveConfig.configure(command = save_config)
-top.btn_Generate.configure(command = update_and_create)
-# top.btn_Calc.configure(command = top.calculate_K)
+    top.attach()
+    try:
+        top.updateUI(configStorage.current)
+    except IndexError:
+        configStorage.reset_and_save()
+        top.updateUI(configStorage.current)
+    top.revalidate_all()
+    top.btn_SaveConfig.configure(command=save_config)
+    top.btn_Generate.configure(command=update_and_create)
+    # top.btn_Calc.configure(command = top.calculate_K)
 
-# root.after(10, top.updateUI)
-root.mainloop()
+    # root.after(10, top.updateUI)
+    root.mainloop()
