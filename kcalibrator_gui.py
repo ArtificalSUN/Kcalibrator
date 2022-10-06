@@ -83,9 +83,9 @@ class Toplevel:
             [('selected', _compcolor), ('active',_ana2color)])
 
         top.geometry("620x400+400+250")
-        top.minsize(130, 10)
-        top.maxsize(2948, 1181)
-        top.resizable(0, 0)
+        top.minsize(620, 400)
+        top.maxsize(1920, 1080)
+        top.resizable(1, 1)
         top.title("Kcalibrator")
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")
