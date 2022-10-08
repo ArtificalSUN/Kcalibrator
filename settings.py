@@ -12,7 +12,7 @@ class SettingsProfile:
     Class to handle parameters for pattern generation and g-code output
     """
 
-    def __init__(self, name="Config"):
+    def __init__(self, name="Default"):
         self.name = name
         self.speed_slow = 20.0  # slow speed for calibration pattern
         self.speed_fast = 100.0  # fast speed for calibrtion pattern
