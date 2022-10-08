@@ -223,6 +223,23 @@ class SettingsProfile:
         self.def_speed_travel = float(read_val("def_speed_travel"))
         self.def_cooling = int(read_val("def_cooling"))
 
+    def __repr__(self):
+        res = "Profile [{}]: ".format(self.name)
+        for key in dir(self):
+            if key.startswith("_"):
+                continue
+
+            item = getattr(self, key)
+            if callable(item) or type(item) is list:
+                continue
+
+            res += "{} = {}, ".format(key, str(item))
+
+        return res.strip(", ")
+
+    def __str__(self):
+        return "Profile: {}".format(self.name)
+
 
 class SettingClass:
     """
@@ -241,9 +258,25 @@ class SettingClass:
         self.current = SettingsProfile()
         self.add_profile(self.current)
 
+    def get_profiles_list(self):
+        return sorted(self.profiles.keys())
+
+    def reset_profile(self):
+        self.set_profile(self.get_profiles_list()[0])
+
     def add_profile(self, profile):
         self.profiles[profile.name] = profile
         print("[config] Added profile: {}".format(profile.name))
+
+    def delete_profile(self, name):
+        if len(self.profiles) < 2:
+            print("[config] Unable to delete single profile")
+            return
+
+        if name in self.profiles:
+            del self.profiles[name]
+            print("[config] Deleted profile: {}".format(name))
+            self.reset_profile()
 
     def set_profile(self, name):
         if name in self.profiles:
@@ -268,6 +301,7 @@ class SettingClass:
         print("[config] Loading from: {}".format(self.config_path))
         config = configparser.ConfigParser()
         config.read(self.config_path)
+        self.profiles.clear()
 
         for section in config.sections():
             print("[config] Loading profile: {}".format(section))
@@ -276,8 +310,8 @@ class SettingClass:
             print("[config] Loaded profile: {}".format(profile.name))
             self.add_profile(profile)
 
-        self.set_profile(config.sections()[0])
         print("[config] Configuration loaded")
+        self.reset_profile()
 
     def try_load(self):
         """
