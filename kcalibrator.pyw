@@ -24,8 +24,9 @@ import tkinter.messagebox as mbx
 
 import kcalibrator_gui as gui
 import kcalibrator_gui_support as gui_support
-import kcalibrator_settings as settings
+
 from gcode import creategcode
+from settings import SettingsProfile, SettingClass
 
 
 class Application:
@@ -49,7 +50,7 @@ class Application:
             mbx.showerror("Already exists", "Profile \"{}\" already exists".format(name))
             return
 
-        profile = settings.SettingsProfile(name)
+        profile = SettingsProfile(name)
         self.configStorage.add_profile(profile)
         self.configStorage.set_profile(name)
         self.on_profile_list_changed()
@@ -100,7 +101,7 @@ class Application:
             out.writelines(gcode)
 
     def run(self):
-        self.configStorage = settings.SettingClass(self.configPath)
+        self.configStorage = SettingClass(self.configPath)
         self.configStorage.try_load()
 
         self.root = tk.Tk()
