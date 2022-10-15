@@ -35,7 +35,6 @@ class SettingsProfile:
         self.firmware_list = ['Marlin/Lerdge', 'Klipper', 'RepRapFirmware', ]
         self.kinematics = 'Cartesian'  # kinematics type
         self.kinematics_list = ['Cartesian', 'Delta', ]
-        # self.build_vol = (235, 235, 250) # machine build volume
 
         self.def_fil_dia = 1.75  # filament diameter in mm
         self.def_line_width = 0.4  # line width
@@ -44,69 +43,65 @@ class SettingsProfile:
         self.def_speed_travel = 160.0  # default travel speed
         self.def_cooling = 50  # part cooling fan speed (0-100)
 
-    def update(self, root):
+    def update(self, ui):
         """Method for updating settings from GUI"""
-        s = root.ent_SlowSpeed.get()
-        self.speed_slow = float(s)
-        s = root.ent_FastSpeed.get()
-        self.speed_fast = float(s) if s else 0.0
-        s = root.ent_StartK.get()
-        self.k_start = float(s) if s else 0.0
-        s = root.ent_StopK.get()
-        self.k_end = float(s) if s else 0.0
-        s = root.ent_StepK.get()
-        self.k_step = float(s) if s else 0.0
-        s = root.ent_LayersPerK.get()
-        self.layers_per_k = int(s) if s else 0
-        s = root.ent_Zoffset.get()
-        self.z_offset = float(s) if s else 0.0
-        s1 = root.ent_PatternXsize.get()
-        s2 = root.ent_PatternYsize.get()
-        self.size = (float(s1) if s1 else 0.0,
-                     float(s2) if s2 else 0.0)
-        s1 = root.ent_RetractDist.get()
-        s2 = root.ent_RetractSpeed.get()
-        self.retract = (float(s1) if s1 else 0.0,
-                        float(s2) if s2 else 0.0)
-        s1 = root.ent_BuildVolX.get()
-        s2 = root.ent_BuildVolY.get()
-        s3 = root.ent_BuildVolZ.get()
-        self.bed_size = (float(s1) if s1 else 0.0,
-                         float(s2) if s2 else 0.0,
-                         float(s3) if s3 else 0.0)
-        s1 = root.ent_NozzleTemp.get()
-        s2 = root.ent_BedTemp.get()
-        self.temperature = (int(s1) if s1 else 0,
-                            int(s2) if s2 else 0)
-        s1 = root.ent_SpdFr1.get()
-        s2 = root.ent_SpdFr2.get()
-        s3 = root.ent_SpdFr3.get()
-        self.path_spd_fractions = (float(s1) if s1 else 0.0,
-                                   float(s2) if s2 else 0.0,
-                                   float(s3) if s3 else 0.0)
-        self.retract_at_layer_change = root.chk_RetractAtLayerChange_var.get()
-        self.double_perimeter = root.chk_TwoPerimeters_var.get()
-        self.use_ABL = root.chk_UseAutoleveling_var.get()  # adds autoleveling to start gcode
-        self.ABL_type = root.cmb_AutolevelingType.get()  # gcode to start ABL
-        # self.ABL_type_list = root.cmb_AutolevelingType_value_list
-        self.firmware = root.cmb_Firmware.get()  # firmware type
-        # self.firmware_list = root.cmb_Firmware_value_list
-        self.kinematics = root.cmb_Kinematics.get()  # kinematics type
-        # self.kinematics_list = root.cmb_Kinematics_value_list
-        # self.build_vol = (float(root.ent_BuildVolX.get()), float(root.ent_BuildVolY.get()), float(root.ent_BuildVolZ.get())) #machine build volume
 
-        s = root.ent_FilamentDia.get()
-        self.def_fil_dia = float(s) if s else 0.0
-        s = root.ent_LineWidth.get()
-        self.def_line_width = float(s) if s else 0.0
-        s = root.ent_LayerHeight.get()
-        self.def_layer = float(s) if s else 0.0
-        s = root.ent_FirstLayerSpeed.get()
-        self.def_speed_print = float(s) if s else 0.0
-        s = root.ent_TravelSpeed.get()
-        self.def_speed_travel = float(s) if s else 0.0
-        s = root.scl_CoolingPerc.get()
-        self.def_cooling = int(s) * 5 if s else 0
+        def read_float(value, default=0.0):
+            return float(value.strip().replace(",", ".")) if value else default
+
+        def read_int(value, default=0):
+            return int(value) if value else default
+
+        s = ui.ent_SlowSpeed.get()
+        self.speed_slow = read_float(s)
+        s = ui.ent_FastSpeed.get()
+        self.speed_fast = read_float(s)
+        s = ui.ent_StartK.get()
+        self.k_start = read_float(s)
+        s = ui.ent_StopK.get()
+        self.k_end = read_float(s)
+        s = ui.ent_StepK.get()
+        self.k_step = read_float(s)
+        s = ui.ent_LayersPerK.get()
+        self.layers_per_k = read_int(s)
+        s = ui.ent_Zoffset.get()
+        self.z_offset = read_float(s)
+        s1 = ui.ent_PatternXsize.get()
+        s2 = ui.ent_PatternYsize.get()
+        self.size = (read_float(s1), read_float(s2))
+        s1 = ui.ent_RetractDist.get()
+        s2 = ui.ent_RetractSpeed.get()
+        self.retract = (read_float(s1), read_float(s2))
+        s1 = ui.ent_BuildVolX.get()
+        s2 = ui.ent_BuildVolY.get()
+        s3 = ui.ent_BuildVolZ.get()
+        self.bed_size = (read_float(s1), read_float(s2), read_float(s3))
+        s1 = ui.ent_NozzleTemp.get()
+        s2 = ui.ent_BedTemp.get()
+        self.temperature = (read_int(s1), read_int(s2))
+        s1 = ui.ent_SpdFr1.get()
+        s2 = ui.ent_SpdFr2.get()
+        s3 = ui.ent_SpdFr3.get()
+        self.path_spd_fractions = (read_float(s1), read_float(s2), read_float(s3))
+        self.retract_at_layer_change = ui.chk_RetractAtLayerChange_var.get()
+        self.double_perimeter = ui.chk_TwoPerimeters_var.get()
+        self.use_ABL = ui.chk_UseAutoleveling_var.get()  # adds autoleveling to start gcode
+        self.ABL_type = ui.cmb_AutolevelingType.get()  # gcode to start ABL
+        self.firmware = ui.cmb_Firmware.get()  # firmware type
+        self.kinematics = ui.cmb_Kinematics.get()  # kinematics type
+
+        s = ui.ent_FilamentDia.get()
+        self.def_fil_dia = read_float(s)
+        s = ui.ent_LineWidth.get()
+        self.def_line_width = read_float(s)
+        s = ui.ent_LayerHeight.get()
+        self.def_layer = read_float(s)
+        s = ui.ent_FirstLayerSpeed.get()
+        self.def_speed_print = read_float(s)
+        s = ui.ent_TravelSpeed.get()
+        self.def_speed_travel = read_float(s)
+        s = ui.scl_CoolingPerc.get()
+        self.def_cooling = read_int(s) * 5
 
     def store(self, config):
         config.add_section(self.name)
@@ -320,8 +315,10 @@ class SettingClass:
         """
 
         if os.path.exists(self.config_path):
-            try: self.read_config()
-            except: self.reset_and_save()
+            try:
+                self.read_config()
+            except Exception:
+                self.reset_and_save()
         else:
             self.save_config()
 
