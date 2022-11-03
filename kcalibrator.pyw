@@ -208,17 +208,16 @@ G0 X0 Y0 F{F_t}""".format(retr = "" if currentConfig.retract_at_layer_change els
             if currentConfig.double_perimeter:
                 ex.e = 0
                 layer.extend([G0((bed_center[0], bed_center[1]+size2[1]/2, current_z), currentConfig.def_speed_travel),
-                            "G1 E0 F{S}\n".format(S=currentConfig.retract[1]*60) if (currentConfig.retract_at_layer_change and not currentConfig.double_perimeter) else "",
-                            G1((corners2[1][0]+size2[0]*currentConfig.path_spd_fractions[0], corners2[1][1], current_z), ex.extrude(abs(corners2[1][0]+size2[0]*currentConfig.path_spd_fractions[0]-bed_center[0])), currentConfig.speed_slow),
+                            G1((corners[1][0]+currentConfig.size[0]*currentConfig.path_spd_fractions[0], corners2[1][1], current_z), ex.extrude(abs(corners[1][0]+currentConfig.size[0]*currentConfig.path_spd_fractions[0]-bed_center[0])), currentConfig.speed_slow),
                             G1((corners2[1][0], corners2[1][1], current_z), ex.extrude(abs(size2[0]*currentConfig.path_spd_fractions[2])), currentConfig.speed_fast),
                             G1((corners2[1][0], corners2[0][1]+size2[1]/2, current_z), ex.extrude(abs(size2[1]/2)), currentConfig.speed_fast),
                             G1((corners2[0][0], corners2[0][1], current_z), ex.extrude(abs(size2[1]/2)), currentConfig.speed_slow),
-                            G1((corners2[0][0]+size2[0]*currentConfig.path_spd_fractions[0], corners2[0][1], current_z), ex.extrude(abs(size2[0]*currentConfig.path_spd_fractions[0])), currentConfig.speed_slow),
-                            G1((corners2[3][0]-size2[0]*(currentConfig.path_spd_fractions[2]), corners2[0][1], current_z), ex.extrude(abs(size2[0]*currentConfig.path_spd_fractions[1])), currentConfig.speed_fast),
+                            G1((corners[0][0]+currentConfig.size[0]*currentConfig.path_spd_fractions[0], corners2[0][1], current_z), ex.extrude(abs(currentConfig.size[0]*currentConfig.path_spd_fractions[0])), currentConfig.speed_slow),
+                            G1((corners[3][0]-currentConfig.size[0]*(currentConfig.path_spd_fractions[2]), corners2[0][1], current_z), ex.extrude(abs(currentConfig.size[0]*currentConfig.path_spd_fractions[1])), currentConfig.speed_fast),
                             G1((corners2[3][0], corners2[3][1], current_z), ex.extrude(abs(size2[0]*currentConfig.path_spd_fractions[2])), currentConfig.speed_slow),
                             G1((corners2[3][0], corners2[3][1]+size2[1]/2, current_z), ex.extrude(abs(size2[1]/2)), currentConfig.speed_slow),
                             G1((corners2[2][0], corners2[2][1], current_z), ex.extrude(abs(size2[1]/2)), currentConfig.speed_fast),
-                            G1((corners2[2][0]-size2[0]*currentConfig.path_spd_fractions[2], corners2[2][1], current_z), ex.extrude(abs(size2[0]*currentConfig.path_spd_fractions[2])), currentConfig.speed_fast),
+                            G1((corners[2][0]-currentConfig.size[0]*currentConfig.path_spd_fractions[2], corners2[2][1], current_z), ex.extrude(abs(currentConfig.size[0]*currentConfig.path_spd_fractions[2])), currentConfig.speed_fast),
                             G1((bed_center[0]+currentConfig.def_line_width/2, bed_center[1]+size2[1]/2, current_z), ex.extrude(abs(corners[1][0]+size2[0]*currentConfig.path_spd_fractions[0]-bed_center[0])), currentConfig.speed_slow),
                             "G92 E0\n",
                             "G1 E-{R} F{S}\n".format(R=currentConfig.retract[0], S=currentConfig.retract[1]*60) if currentConfig.retract_at_layer_change else ""])
